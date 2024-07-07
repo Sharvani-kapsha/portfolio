@@ -1,0 +1,253 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: lightseagreen;
+    color: white;
+    padding: 10px 20px;
+}
+
+nav .nav-loop img {
+    width: 70px;
+    /* Adjust the width for smaller logo size */
+    height: auto;
+    margin-right: 20px;
+    /* Optional: Adjust margin as needed */
+}
+
+nav .nav-loop p {
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0;
+}
+
+nav .nav-menu {
+    display: flex;
+    align-items: center;
+}
+
+nav .nav-menu ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+nav .nav-menu ul li {
+    margin: 0 15px;
+}
+
+nav .nav-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav .nav-menu ul li a:hover,
+nav .nav-menu ul li a.active-link {
+    text-decoration: underline;
+}
+
+nav .mode {
+    display: flex;
+    align-items: center;
+}
+
+nav .mode .moon-sun {
+    cursor: pointer;
+}
+
+nav .mode .fa-moon,
+nav .mode .fa-sun {
+    margin: 0 5px;
+    display: none;
+    /* Hide both icons initially */
+}
+
+nav .mode .fa-moon.active,
+nav .mode .fa-sun.active {
+    display: inline;
+    /* Show the active icon */
+}
+
+nav .nav-menu-btn {
+    display: none;
+}
+
+/* Featured Section */
+.featured-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 20px;
+    background-color: #282c34;
+    color: white;
+}
+
+.featured-text {
+    max-width: 600px;
+}
+
+.featured-text .hello p {
+    font-size: 24px;
+    margin: 0;
+}
+
+.featured-name .typedText {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.text-info p {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.social_icons {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.social_icons .icon {
+    margin-right: 10px;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+.social_icons .icon i {
+    font-size: 24px;
+}
+
+.featured-image img {
+    width: 150px;
+    /* Adjusted smaller logo size */
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Sections */
+.section {
+    padding: 50px 20px;
+}
+
+.section .top-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section .top-header h1 {
+    font-size: 36px;
+    margin: 0;
+    text-align: center;
+    /* Adjust text alignment as needed */
+    color: #fff;
+    background-color: lightseagreen;
+    /* Example color */
+    /* Add any other styles you want */
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.col {
+    flex: 1;
+    max-width: 600px;
+    padding: 20px;
+}
+
+/* Contacts Section */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.contact-item i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.contact-item p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.contact-item a {
+    color: #61dafb;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-item a:hover {
+    color: #00bcd4;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    nav .nav-menu {
+        display: none;
+    }
+
+    nav .nav-menu.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav .nav-menu-btn {
+        display: block;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .featured-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .featured-image img {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 20px;
+    }
+}
+
+body.light-mode {
+    background-color: #fff;
+    color: #000;
+}
+
+body.light-mode nav {
+    background-color: #fff;
+    color: #000;
+}
+
+body.light-mode nav .nav-menu ul li a {
+    color: #000;
+}
