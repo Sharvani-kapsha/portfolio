@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Kapsa sharvani</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#0f172a', // slate-900
+                        'secondary-dark': '#1e293b', // slate-800
+                        'accent': '#06b6d4', // cyan-500
+                        'accent-light': '#22d3ee', // cyan-400
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'slide-in-right': 'slideInRight 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: 0, transform: 'translateY(20px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        },
+                        slideInRight: {
+                            '0%': { opacity: 0, transform: 'translateX(20px)' },
+                            '100%': { opacity: 1, transform: 'translateX(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for smooth link handling (no fixed hash link navigation) */
+        .nav-link {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        /* Base styles for fade-in effect before JS handles visibility */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Utility for glowing shadow effect on accent items */
+        .accent-shadow {
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        /* 🔥 ADD HERE (inside style) */
+        ::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #22d3ee;
+            border-radius: 10px;
+        }
+       #role-text::after,
+#typing-text::after {
+    content: "|";
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+}
+/* TIMELINE ANIMATION */
+.timeline-item {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  transition: all 0.8s ease;
+}
+
+.timeline-item.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* glowing dots */
+.timeline-dot {
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0px #22d3ee; }
+  50% { box-shadow: 0 0 20px #22d3ee; }
+  100% { box-shadow: 0 0 0px #22d3ee; }
+}
+
+/* tags */
+.tag {
+  padding: 6px 12px;
+  background: rgba(34, 211, 238, 0.2);
+  color: #22d3ee;
+  border-radius: 999px;
+  font-size: 12px;
+  transition: 0.3s;
+}
+
+.tag:hover {
+  background: #22d3ee;
+  color: black;
+}
+
+/* glowing pulse on dots */
+.timeline-dot {
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0px #22d3ee; }
+  50% { box-shadow: 0 0 15px #22d3ee; }
+  100% { box-shadow: 0 0 0px #22d3ee; }
+}
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+::-webkit-scrollbar {
+  display: none;
+}
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+</head>
+
+<body class="bg-primary-dark text-white font-sans antialiased">
+
+    <!-- Fixed Navigation Bar -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 bg-primary-dark/95 backdrop-blur-sm shadow-xl transition-all duration-300">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-extrabold text-accent-light hover:text-white transition duration-300 tracking-wider">
+                Kapsa Sharvani <span class="hidden sm:inline"></span>
+            </a>
+            <div id="nav-menu" class="hidden md:flex space-x-8 text-lg font-medium">
+                <a href="#about" class="nav-link hover:text-accent-light">About</a>
+                <a href="#experience" class="nav-link hover:text-accent-light">Experience</a>
+                <a href="#skills" class="nav-link hover:text-accent-light">Skills</a>
+                <a href="#education" class="nav-link hover:text-accent-light">Education</a>
+                <a href="#projects" class="nav-link hover:text-accent-light">Projects</a>
+                <a href="#resume" class="nav-link hover:text-accent-light">Resume</a>
+                <a href="#contact" class="nav-link hover:text-accent-light">Contact</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-secondary-dark/95 py-2">
+            <a href="#about" class="block px-4 py-2 nav-link hover:bg-accent-light/20">About Me</a>
+            <a href="#experience" class="block px-4 py-2 nav-link hover:bg-accent-light/20">Experience</a>
+            <a href="#skills" class="block px-4 py-2 nav-link hover:bg-accent-light/20">Skills</a>
+            <a href="#education" class="block px-4 py-2 nav-link hover:bg-accent-light/20">Education</a>
+            <a href="#projects" class="block px-4 py-2 nav-link hover:bg-accent-light/20">Projects</a>
+            <a href="#resume" class="block px-4 py-2 nav-link hover:bg-accent-light/20">Resume</a>
+            <a href="#contact" class="block px-4 py-2 nav-link hover:bg-accent-light/20">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <div id="tsparticles" class="absolute inset-0 -z-10"></div>
+        <section id="home" class="min-h-screen flex items-center pt-24 pb-12 bg-gradient-to-br from-primary-dark via-secondary-dark to-primary-dark">
+    <div class="container mx-auto px-6 flex flex-col-reverse md:flex-row items-center justify-between gap-12">
+
+        <!-- LEFT CONTENT -->
+        <div class="md:w-1/2 text-center md:text-left">
+
+            <p class="text-xl text-accent-light mb-2">Hello, I'm</p>
+
+            <h1 class="text-5xl sm:text-7xl font-black mb-4 leading-tight">
+                Kapsa <span class="text-accent-light">Sharvani</span>
+            </h1>
+            <div class="flex gap-6 justify-center md:justify-start mt-6 animate-bounce">
+    <span class="text-accent-light text-2xl">🐍</span>
+    <span class="text-accent-light text-2xl">🌐</span>
+    <span class="text-accent-light text-2xl">⚡</span>
+</div>
+
+            <!-- Dynamic Role -->
+            <h2 class="text-2xl sm:text-3xl text-gray-400 mb-6">
+                <span id="role-text" class="text-accent-light font-semibold"></span>
+            </h2>
+
+            <!-- Typing Description -->
+            <p id="typing-text" class="text-lg text-gray-300 mb-8 max-w-xl"></p>
+
+            <!-- Buttons -->
+           <div class="flex gap-4 flex-wrap justify-center md:justify-start">
+    <a href="#projects"
+       class="px-8 py-3 text-lg font-semibold bg-accent-light text-primary-dark rounded-lg hover:bg-accent transition transform hover:scale-105">
+        View My Work →
+    </a>
+
+    <a href="#contact"
+       class="px-8 py-3 text-lg font-semibold border border-accent-light text-accent-light rounded-lg hover:bg-accent-light hover:text-primary-dark transition transform hover:scale-105">
+        🚀 Hire Me
+    </a>
+</div>
+
+        </div>
+
+        <!-- RIGHT SIDE IMAGE -->
+        <div class="md:w-1/2 flex justify-center">
+            <div class="relative">
+                <div class="absolute inset-0 bg-accent-light blur-3xl opacity-20 rounded-full"></div>
+
+                <img 
+                    src="C:\Users\sharv\portfolio\profile pic.jpg"
+                    class="relative w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-full border-4 border-accent-light shadow-2xl"
+                >
+            </div>
+        </div>
+
+    </div>
+</section>
+    <!-- 2. ABOUT ME SECTION - GLASSMORPHISM -->
+<section id="about" class="py-20 bg-gradient-to-br from-[#0f172a] via-[#020617] to-[#0f172a] relative overflow-hidden">
+
+  <!-- Background Glow Effects -->
+  <div class="absolute top-10 left-10 w-72 h-72 bg-accent-light opacity-20 blur-3xl rounded-full"></div>
+  <div class="absolute bottom-10 right-10 w-72 h-72 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- About Image -->
+<div class="flex justify-center mb-12">
+    
+    <div class="relative group">
+        
+        <!-- Glow -->
+        <div class="absolute inset-0 bg-accent-light blur-3xl opacity-30 rounded-3xl group-hover:opacity-50 transition duration-500"></div>
+
+        <!-- Image -->
+        <img 
+            src="C:\Users\sharv\portfolio\profile.jpeg"
+            alt="Sharvani"
+            class="relative w-72 h-96 object-cover rounded-3xl border-4 border-accent-light shadow-2xl 
+                   transform group-hover:scale-105 group-hover:rotate-1 transition duration-500"
+        >
+
+        
+
+    </div>
+
+</div>
+
+    <!-- Heading -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-white inline-block border-b border-white/20 pb-2">
+        About Me
+      </h2>
+      <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+        Blending technology, creativity, and leadership to build impactful solutions.
+      </p>
+    </div>
+
+    <!-- Glass Cards -->
+    <div class="flex gap-8 overflow-x-auto px-2 snap-x snap-mandatory">
+        <!-- CARD -->
+      <div class="snap-center flex-shrink-0 w-[300px] md:w-[30%] 
+                  bg-white/10 backdrop-blur-lg border border-white/20 
+                  rounded-2xl p-6 shadow-xl 
+                  hover:scale-105 hover:bg-white/20 
+                  transition duration-300">
+
+        <h3 class="text-2xl font-semibold text-white mb-3">🚀 The Founder</h3>
+        <p class="text-gray-300 leading-relaxed">
+          Founder of <span class="text-accent-light font-semibold">Hitagyana</span>, 
+          empowering students with skills and career guidance.
+        </p>
+        <p class="text-gray-400 mt-3">
+          Building impact beyond code.
+        </p>
+      </div>
+
+      <!-- CARD -->
+      <div class="snap-center flex-shrink-0 w-[300px] md:w-[30%] 
+                  bg-white/10 backdrop-blur-lg border border-white/20 
+                  rounded-2xl p-6 shadow-xl 
+                  hover:scale-105 hover:bg-white/20 
+                  transition duration-300">
+
+        <h3 class="text-2xl font-semibold text-white mb-3">💻 The Coder</h3>
+        <p class="text-gray-300 leading-relaxed">
+          Started with <span class="text-accent-light font-semibold">HTML & CSS</span>, 
+          now building powerful applications using 
+          <span class="text-accent-light font-semibold">Python</span>.
+        </p>
+        <p class="text-gray-400 mt-3">
+          Exploring <span class="text-accent-light font-semibold">Java</span> for scalable systems.
+        </p>
+      </div>
+
+      <!-- CARD -->
+      <div class="snap-center flex-shrink-0 w-[300px] md:w-[30%] 
+                  bg-white/10 backdrop-blur-lg border border-white/20 
+                  rounded-2xl p-6 shadow-xl 
+                  hover:scale-105 hover:bg-white/20 
+                  transition duration-300">
+
+        <h3 class="text-2xl font-semibold text-white mb-3">📊 The Analyst</h3>
+        <p class="text-gray-300 leading-relaxed">
+          Passionate about <span class="text-accent-light font-semibold">Data Science</span>, 
+          using Python & SQL to extract meaningful insights.
+        </p>
+        <p class="text-gray-400 mt-3">
+          Turning raw data into smart decisions.
+        </p>
+      </div>
+
+      <!-- CARD -->
+      <div class="snap-center flex-shrink-0 w-[300px] md:w-[30%] 
+                  bg-white/10 backdrop-blur-lg border border-white/20 
+                  rounded-2xl p-6 shadow-xl 
+                  hover:scale-105 hover:bg-white/20 
+                  transition duration-300">
+
+        <h3 class="text-2xl font-semibold text-white mb-3">🎨 The Designer</h3>
+        <p class="text-gray-300 leading-relaxed">
+          Love for <span class="text-accent-light font-semibold">UI/UX & Design</span> 
+          makes my work both functional and beautiful.
+        </p>
+        <p class="text-gray-400 mt-3">
+          I design experiences, not just interfaces.
+        </p>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+        <!-- EXPERIENCE SECTION -->
+<!-- EXPERIENCE SECTION -->
+<section id="experience" class="py-20 bg-secondary-dark">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 animate-on-scroll">
+    
+    <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent-light inline-block pb-2">
+      Experience
+    </h2>
+
+    <div class="max-w-5xl mx-auto space-y-10">
+
+      <!-- EXPERIENCE 1 -->
+      <div class="bg-primary-dark p-6 md:p-8 rounded-xl shadow-lg hover:shadow-[0_0_25px_#22d3ee] transition duration-500 transform hover:-translate-y-2">
+        
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+          <div>
+            <h3 class="text-2xl font-bold text-accent-light mb-2">
+              Data Analyst Intern
+            </h3>
+
+            <p class="text-lg text-gray-300">
+              AVA Technology
+            </p>
+          </div>
+
+          <span class="mt-3 md:mt-0 px-4 py-1 bg-accent/20 text-accent-light rounded-full text-sm font-semibold w-fit">
+            Internship
+          </span>
+        </div>
+
+        <p class="text-gray-400 mt-3">
+          <strong>Role:</strong> Data Analytics & Visualization Intern
+        </p>
+
+        <p class="text-gray-300 mt-4 leading-relaxed">
+          Completed a hands-on internship at AVA Technology focused on Data Analysis, 
+          Visualization, and Machine Learning concepts. Worked on real-time datasets 
+          to extract insights, create dashboards, and improve analytical thinking using Python tools.
+        </p>
+
+        <ul class="list-disc list-inside text-gray-400 mt-4 space-y-2">
+          <li>Performed data cleaning and preprocessing using Python & Pandas.</li>
+          <li>Created visual reports and charts using Matplotlib & Seaborn.</li>
+          <li>Worked on analytical projects involving customer satisfaction and prediction models.</li>
+          <li>Improved skills in SQL, Data Visualization, and Business Insights.</li>
+          <li>Gained practical exposure to Machine Learning and real-world datasets.</li>
+        </ul>
+
+        <!-- TECH TAGS -->
+        <div class="flex flex-wrap gap-3 mt-6">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Data Visualization</span>
+          <span class="tag">Machine Learning</span>
+        </div>
+
+      </div>
+
+      <!-- EXPERIENCE 2 -->
+      <div class="bg-primary-dark p-6 md:p-8 rounded-xl shadow-lg hover:shadow-[0_0_25px_#22d3ee] transition duration-500 transform hover:-translate-y-2">
+        
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+          <div>
+            <h3 class="text-2xl font-bold text-accent-light mb-2">
+              Business Associate
+            </h3>
+
+            <p class="text-lg text-gray-300">
+              Vision Group (Client: SOS)
+            </p>
+          </div>
+
+          <span class="mt-3 md:mt-0 px-4 py-1 bg-accent/20 text-accent-light rounded-full text-sm font-semibold w-fit">
+            Client Interaction
+          </span>
+        </div>
+
+        <p class="text-gray-400 mt-3">
+          <strong>Role:</strong> Client Interaction & Fundraising Associate
+        </p>
+
+        <p class="text-gray-300 mt-4 leading-relaxed">
+          Worked as a Business Associate representing Vision Group while collaborating with SOS clients.
+          Responsible for engaging with individuals, explaining social initiatives, and encouraging contributions
+          through effective communication and persuasion techniques.
+        </p>
+
+        <ul class="list-disc list-inside text-gray-400 mt-4 space-y-2">
+          <li>Handled direct communication with clients and donors.</li>
+          <li>Delivered impactful presentations and fundraising pitches.</li>
+          <li>Built strong interpersonal and negotiation skills.</li>
+          <li>Achieved daily and weekly contribution targets.</li>
+          <li>Developed confidence in public speaking and client handling.</li>
+        </ul>
+
+        <!-- TAGS -->
+        <div class="flex flex-wrap gap-3 mt-6">
+          <span class="tag">Communication</span>
+          <span class="tag">Leadership</span>
+          <span class="tag">Client Handling</span>
+          <span class="tag">Public Speaking</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+        <!-- 3. SKILLS SECTION -->
+        <section id="skills" class="py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent-light inline-block pb-2">
+                    Technical Toolkit
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <!-- Web Development -->
+                    <div class="bg-secondary-dark p-6 rounded-xl shadow-lg hover:shadow-accent-shadow transition duration-300">
+                        <h3 class="text-2xl font-bold text-accent-light mb-4">Web Development</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-badge">HTML5</span>
+                            <span class="skill-badge">CSS3 & Tailwind CSS</span>
+                            <span class="skill-badge">JavaScript </span>
+                            <span class="skill-badge">Responsive Design</span>
+                            <span class="skill-badge">APIs & JSON</span>
+                        </div>
+                    </div>
+
+                    <!-- Backend & Data -->
+                    <!-- Backend & Data -->
+<div class="bg-secondary-dark p-6 rounded-xl shadow-lg hover:shadow-accent-shadow transition duration-300">
+    <h3 class="text-2xl font-bold text-accent-light mb-4">Backend, Data & Analytics</h3>
+    <div class="flex flex-wrap gap-3">
+        <span class="skill-badge">Python</span>
+        <span class="skill-badge">SQL (MySQL)</span>
+        <span class="skill-badge">Java (Beginner/Core)</span>
+        <span class="skill-badge">Data Structures</span>
+        <span class="skill-badge">OOP Principles</span>
+        <span class="skill-badge">Data Analysis</span>
+        <span class="skill-badge">Pandas & NumPy</span>
+        <span class="skill-badge">Data Visualization</span>
+        <span class="skill-badge">Machine Learning Basics</span>
+    </div>
+</div>
+
+                    <!-- Tools & Design -->
+                    <div class="bg-secondary-dark p-6 rounded-xl shadow-lg hover:shadow-accent-shadow transition duration-300">
+                        <h3 class="text-2xl font-bold text-accent-light mb-4">Tools & Design</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-badge">Git & GitHub</span>
+                            <span class="skill-badge">VS Code</span>
+                            <span class="skill-badge">Figma</span>
+                            <span class="skill-badge">canva</span>
+                            <span class="skill-badge">Android Studio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+       <!-- 4. EDUCATION SECTION -->
+<section id="education" class="py-24 bg-gradient-to-br from-primary-dark via-secondary-dark to-primary-dark">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+    <h2 class="text-4xl font-bold text-center mb-16">
+      🎓 <span class="text-accent-light">Education Journey</span>
+    </h2>
+
+    <div class="relative max-w-4xl mx-auto">
+
+      <!-- Vertical Line -->
+      <div class="absolute left-3 top-0 w-1 h-full bg-accent-light/30"></div>
+
+      <!-- Item 1 -->
+      <div class="timeline-item relative pl-12 mb-12">
+        <div class="timeline-dot absolute left-0 top-2 w-6 h-6 bg-accent-light rounded-full border-4 border-primary-dark"></div>
+
+        <div class="bg-primary-dark p-6 rounded-xl shadow-lg hover:shadow-[0_0_25px_#22d3ee] transition duration-500 transform hover:-translate-y-2 hover:scale-[1.02]">
+          <h3 class="text-2xl font-bold text-accent-light">🎓 B.Tech in CSE (Data Science)</h3>
+          <p class="text-gray-300">SR University, Hanamkonda</p>
+          <p class="text-sm text-gray-400">2021 – 2025 • Top 3%</p>
+
+          <p class="text-gray-300 mt-3">
+            Focused on Machine Learning, Web Development, and Software Engineering.
+          </p>
+
+          <div class="mt-3 flex gap-2 flex-wrap">
+            <span class="tag">ML</span>
+            <span class="tag">Web Dev</span>
+            <span class="tag">AI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="timeline-item relative pl-12 mb-12">
+        <div class="timeline-dot absolute left-0 top-2 w-6 h-6 bg-accent-light rounded-full border-4 border-primary-dark"></div>
+
+        <div class="bg-primary-dark p-6 rounded-xl shadow-lg hover:shadow-[0_0_25px_#22d3ee] transition duration-500 transform hover:-translate-y-2 hover:scale-[1.02]">
+          <h3 class="text-2xl font-bold text-accent-light">📘 Intermediate (MPC)</h3>
+          <p class="text-gray-300">Sri Venkateshwara Junior College</p>
+          <p class="text-sm text-gray-400">Completed: 2021</p>
+
+          <p class="text-gray-300 mt-3">
+            Strong foundation in Mathematics & Physics.
+          </p>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="timeline-item relative pl-12">
+        <div class="timeline-dot absolute left-0 top-2 w-6 h-6 bg-accent-light rounded-full border-4 border-primary-dark"></div>
+
+        <div class="bg-primary-dark p-6 rounded-xl shadow-lg hover:shadow-[0_0_25px_#22d3ee] transition duration-500 transform hover:-translate-y-2 hover:scale-[1.02]">
+          <h3 class="text-2xl font-bold text-accent-light">🏫 SSC</h3>
+          <p class="text-gray-300">Chinna Munshi Public School</p>
+          <p class="text-sm text-gray-400">Completed: 2019</p>
+
+          <p class="text-gray-300 mt-3">
+            Developed leadership & communication skills.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+        <!-- 5. PROJECTS SECTION -->
+        <section id="projects" class="py-20 bg-secondary-dark">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent-light inline-block pb-2">
+                    Featured Projects
+                </h2>
+
+                <div class="space-y-16">
+
+                    <!-- Project 1: Web Development Focus -->
+<div class="flex flex-col lg:flex-row bg-primary-dark rounded-xl overflow-hidden shadow-2xl p-6 lg:p-10 transform hover:scale-[1.01] transition duration-300">
+    
+    <!-- Left Side: Text Content -->
+    <div class="lg:w-2/3 lg:pr-10 space-y-4">
+        <h3 class="text-3xl font-bold text-accent-light">
+            Emoji-Based Song Recommendation System (Java + XAMPP)
+        </h3>
+        <p class="text-sm text-gray-500 font-mono">
+            AI | Machine Learning | Java Backend | Database Integration
+        </p>
+        <p class="text-gray-300 text-lg">
+            A smart recommendation engine that suggests songs based on users’ emoji inputs.
+            This project translates emotional cues from emojis into mood-based song recommendations
+            using Java, database queries, and emotion mapping techniques.
+        </p>
+        <ul class="list-disc list-inside text-gray-400 pl-4 space-y-1">
+            <li><strong>Features:</strong> Real-time emoji-to-song mapping using database queries. Supports multiple mood categories like happy, sad, romantic, and energetic. Responsive and interactive Java-based UI. Secure and efficient data storage via XAMPP MySQL.</li>
+            <li><strong>Impact:</strong> Enhanced personalization in music recommendation systems through emotion-driven logic. Simplified user interaction by replacing text-based inputs with emojis. Encourages emotional connection between users and music.</li>
+            <li><strong>Tech Stack:</strong> Java (Eclipse), XAMPP (MySQL), JDBC, SQL</li>
+        </ul>
+
+        <!-- Buttons -->
+        <div class="pt-4 flex space-x-4">
+            <a href="https://github.com/Sharvani-kapsha/Major-Project"
+               target="_blank"
+               class="project-btn border border-gray-600 text-gray-300 font-semibold px-5 py-2 rounded-lg hover:border-accent-light hover:text-accent-light transition duration-300">
+               💻 GitHub Repository
+            </a>
+        </div>
+    </div>
+
+    <!-- Right Side: Project Screenshot -->
+    <div class="lg:w-1/3 mt-6 lg:mt-0 flex items-center justify-center">
+        <div class="w-full h-56 bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 text-center p-4">
+            <img src="C:\Users\sharv\portfolio\javaoutput.png" 
+       alt="Emoji Based Song Recommendation System Dashboard"
+       class="w-full h-56 object-cover rounded-lg shadow-lg border border-gray-700" />
+        </div>
+    </div>
+</div>
+
+                  <!-- Project 2: Data Science/Analysis Focus -->
+<div class="flex flex-col lg:flex-row-reverse bg-primary-dark rounded-xl overflow-hidden shadow-2xl p-6 lg:p-10 transform hover:scale-[1.01] transition duration-300">
+  <div class="lg:w-2/3 lg:pl-10 space-y-4">
+    <h3 class="text-3xl font-bold text-accent-light">A Predication of KAP in Hypothyroidism (Python/NLP)</h3>
+    <p class="text-sm text-gray-500 font-mono">Data Science | Visualization | NLP</p>
+    <p class="text-gray-300 text-lg">
+      A machine learning project designed to predict Knowledge, Attitude, and Practice (KAP) scores among individuals with hypothyroidism using advanced Natural Language Processing (NLP) techniques. The model analyzed text-based survey responses to assess awareness levels and health behavior patterns.
+    </p>
+    <ul class="list-disc list-inside text-gray-400 pl-4 space-y-1">
+      <li>Tech Used: Python (TensorFlow, Keras, BERT, LSTM, Pandas, Matplotlib), NLP preprocessing, and data visualization tools.</li>
+      <li>Methodology: Text cleaning, tokenization, sentiment extraction, and embedding generation using BERT. Time-series trends were analyzed using LSTM for behavior prediction.</li>
+      <li>Impact: Helped identify key factors affecting patient awareness and attitudes toward hypothyroidism management, contributing to improved health education strategies.</li>
+    </ul>
+    <div class="pt-4 flex space-x-4">
+      <a href="C:\Users\sharv\portfolio\bingethinkerfinalpaper.pdf" target="_blank" class="project-btn bg-accent-light text-primary-dark">Read Report</a>
+      <a href="C:\Users\sharv\portfolio\projectofnlp.py" target="_blank" class="project-btn border border-gray-600 text-gray-300 hover:border-accent-light">Jupyter Notebook</a>
+    </div>
+  </div>
+
+  <div class="lg:w-1/3 mt-6 lg:mt-0 flex items-center justify-center">
+    <img 
+      src="C:\Users\sharv\portfolio\methodology.png"
+      alt="KAP Hypothyroidism Project Visualization"
+      class="w-full h-auto max-h-96 rounded-lg object-cover border border-accent/30"
+    >
+  </div>
+</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. RESUME SECTION -->
+        <section id="resume" class="py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center animate-on-scroll">
+                <h2 class="text-4xl font-bold mb-6 border-b-2 border-accent-light inline-block pb-2">
+                    My Resume
+                </h2>
+                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                    A detailed summary of my education, experience, and certifications. Download the full resume to explore my commitment to technical excellence.
+                </p>
+                <a href="C:\Users\sharv\portfolio\KAPSA SHARVANI.pdf" download="sharvani_Resume.pdf" class="inline-block px-10 py-4 text-xl font-semibold bg-accent text-white rounded-lg hover:bg-accent-light transition duration-300 transform hover:scale-105 accent-shadow">
+                    Download CV (PDF)
+                </a>
+                <button onclick="openResume()" 
+class="px-6 py-3 bg-accent text-white rounded-lg mt-4 hover:scale-105 transition">
+📄 Preview Resume
+</button>
+            </div>
+        </section>
+
+        <!-- 7. CONTACT SECTION -->
+        <section id="contact" class="py-20 bg-secondary-dark">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent-light inline-block pb-2">
+                    Get In Touch
+                </h2>
+                <div class="max-w-3xl mx-auto space-y-10">
+                    <p class="text-xl text-gray-300 text-center">
+                        I am actively seeking my first full-time role and eager to discuss how my foundational skills and versatile interests can benefit your team.
+                    </p>
+
+                    <!-- Contact Form (Placeholder) -->
+                    <form action="#" method="POST" class="space-y-6">
+                        <input type="text" placeholder="Your Name" required class="w-full p-4 rounded-lg bg-primary-dark border border-gray-700 focus:border-accent-light focus:ring-accent-light text-white transition duration-200">
+                        <input type="email" placeholder="Your Email" required class="w-full p-4 rounded-lg bg-primary-dark border border-gray-700 focus:border-accent-light focus:ring-accent-light text-white transition duration-200">
+                        <textarea placeholder="Your Message (Let's connect!)" rows="5" required class="w-full p-4 rounded-lg bg-primary-dark border border-gray-700 focus:border-accent-light focus:ring-accent-light text-white transition duration-200"></textarea>
+                        <button type="submit" class="w-full p-4 text-lg font-bold bg-accent hover:bg-accent-light text-primary-dark rounded-lg transition duration-300 transform hover:scale-[1.01] accent-shadow">
+                            Send Message
+                        </button>
+                    </form>
+
+                    <!-- Social Links -->
+                    <div class="flex justify-center space-x-6 pt-6">
+                        <a href="https://www.linkedin.com/in/kapsasharvani/" target="_blank" class="text-gray-400 hover:text-accent-light transition duration-300 transform hover:scale-125" aria-label="LinkedIn">
+                            <!-- LinkedIn SVG Icon -->
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.535-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="https://github.com/Sharvani-kapsha" target="_blank" class="text-gray-400 hover:text-accent-light transition duration-300 transform hover:scale-125" aria-label="GitHub">
+                            <!-- GitHub SVG Icon -->
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 0C5.372 0 0 5.372 0 12c0 5.308 3.438 9.8 8.205 11.385.6.11.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.72-4.043-1.61-4.043-1.61-.545-1.384-1.332-1.753-1.332-1.753-1.087-.743.082-.728.082-.728 1.205.084 1.838 1.235 1.838 1.235 1.07 1.833 2.809 1.3 3.49-.997.108-.875.418-1.3.795-1.6C7.54 18.27 4.54 17.29 4.54 12.35c0-1.026.36-1.868.96-2.524-.1-.252-.435-1.192.09-2.508 0 0 1.05-.253 3.435 1.018C8.83 8.04 9.87 7.9 10.9 7.9c1.03 0 2.07.14 3.03.41 2.385-1.27 3.435-1.018 3.435-1.018.525 1.316.19 2.256.09 2.508.6.656.96 1.498.96 2.524 0 4.95-3.003 5.92-5.835 6.2-.445.385-.82.903-.82 1.815 0 1.305.01 2.355.01 2.67 0 .32.22.69.82.57C20.56 21.8 24 17.308 24 12c0-6.628-5.372-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary-dark border-t border-gray-800 py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            <p>&copy; <span id="current-year"></span> sharvani. All rights reserved. | Built with HTML, Tailwind CSS, and Passion.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for smooth scrolling, mobile menu, and scroll animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const currentYear = new Date().getFullYear();
+            document.getElementById('current-year').textContent = currentYear;
+            
+            // --- 1. Smooth Scrolling Logic ---
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Calculate offset for fixed header (5rem or 80px)
+                        const offsetTop = targetElement.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu after clicking a link
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+
+            // --- 2. Mobile Menu Toggle ---
+            menuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // --- 3. Scroll-based Fade-in Animations (Intersection Observer) ---
+            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the item is visible
+            });
+
+            elementsToAnimate.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // --- 4. Skill Badge Generation (Aesthetics) ---
+            const skillBadges = document.querySelectorAll('.skill-badge');
+            skillBadges.forEach(badge => {
+                badge.classList.add('px-3', 'py-1', 'bg-accent/20', 'text-accent-light', 'rounded-full', 'text-sm', 'font-medium', 'hover:bg-accent/40', 'transition', 'duration-300');
+            });
+            
+            // --- 5. Project Button Styling ---
+            const projectBtns = document.querySelectorAll('.project-btn');
+            projectBtns.forEach(btn => {
+                btn.classList.add('px-5', 'py-2', 'rounded-lg', 'font-medium', 'text-sm', 'transition', 'duration-300', 'hover:opacity-90', 'transform', 'hover:-translate-y-0.5');
+            });
+        });
+        // Role changing text
+const roles = [
+    "Software Developer 💻",
+    "Data Analyst 📊",
+    "Founder of Hitagyana 🚀",
+    "Creative Designer 🎨"
+];
+
+let roleIndex = 0;
+let charIndex = 0;
+
+function typeRole() {
+    const currentRole = roles[roleIndex];
+    if (charIndex < currentRole.length) {
+        document.getElementById("role-text").innerHTML += currentRole.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeRole, 80);
+    } else {
+        setTimeout(() => {
+            document.getElementById("role-text").innerHTML = "";
+            charIndex = 0;
+            roleIndex = (roleIndex + 1) % roles.length;
+            typeRole();
+        }, 1500);
+    }
+}
+
+// Description typing
+const text = "A passionate developer blending code, creativity, and analytics. I am the Founder of Hitagyana, empowering students with skills, confidence, and real-world knowledge.";
+
+let i = 0;
+function typeText() {
+    if (i < text.length) {
+        document.getElementById("typing-text").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeText, 30);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    typeRole();
+    typeText();
+});
+tsParticles.load("tsparticles", {
+  background: {
+    color: "#0f172a"
+  },
+  particles: {
+    number: { value: 40 },
+    color: { value: "#22d3ee" },
+    links: {
+      enable: true,
+      color: "#22d3ee",
+      distance: 150
+    },
+    move: {
+      enable: true,
+      speed: 2
+    }
+  }
+});
+function openResume() {
+    document.getElementById("resumeModal").classList.remove("hidden");
+    document.getElementById("resumeModal").classList.add("flex");
+}
+
+function closeResume() {
+    document.getElementById("resumeModal").classList.add("hidden");
+}
+// ULTRA TIMELINE ANIMATION (STAGGER EFFECT)
+const timelineItems = document.querySelectorAll('.timeline-item');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('show');
+      }, index * 200); // 🔥 stagger delay
+    }
+  });
+}, { threshold: 0.2 });
+
+timelineItems.forEach(item => observer.observe(item));
+    </script>
+    <!-- Resume Modal -->
+<div id="resumeModal" class="fixed inset-0 bg-black/80 hidden justify-center items-center z-50">
+    <div class="bg-white w-[90%] h-[80%] rounded-lg overflow-hidden relative">
+        
+        <button onclick="closeResume()" 
+        class="absolute top-3 right-3 text-black text-xl font-bold">✖</button>
+
+        <iframe 
+            src="C:\Users\sharv\portfolio\Kapsasharvani.pdf" 
+            class="w-full h-full">
+        </iframe>
+    </div>
+</div>
+</body>
+</html>
